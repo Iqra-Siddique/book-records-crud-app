@@ -253,19 +253,20 @@ describe('AddUpdateModal Modularity Testing', ()=>{
     const publishedDateField = screen.getByTestId("published_date");
     const editButton = screen.getByTestId('update')
 
-    expect(titleField).toHaveValue(`${mockData.title}`)
-    expect(authorField).toHaveValue(`${mockData.author}`)
-    expect(publishedDateField).toHaveValue(`${mockData.published_date}`)
+    await waitFor(()=> expect(titleField).toHaveValue(`${mockData.title}`))
+    await waitFor(()=> expect(authorField).toHaveValue(`${mockData.author}`))
+    await waitFor(()=> expect(publishedDateField).toHaveValue(`${mockData.published_date}`))
 
+    
     await userEvent.clear(titleField)
     await userEvent.clear(authorField)
     await userEvent.clear(publishedDateField)
 
-    expect(titleField).toHaveValue('')
-    expect(authorField).toHaveValue('')
-    expect(publishedDateField).toHaveValue('')
+    await waitFor(()=> expect(titleField).toHaveValue(''))
+    await waitFor(()=> expect(authorField).toHaveValue(''))
+    await waitFor(()=> expect(publishedDateField).toHaveValue(''))
     
-    
+
     await act(() => {
       userEvent.type(titleField, 'Book 2')
       userEvent.type(authorField, 'Marry')

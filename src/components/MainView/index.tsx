@@ -35,7 +35,9 @@ const MainView: FC<any> = () => {
     const editBook = (index: any) => {
         console.log("index", index);
         setAction('Edit');
-        const selectedBook = bookData.find((i) => i === index);
+        const selectedBook = bookData?.find((x, i) => i === index);
+        console.log("data", bookData);
+        console.log("selected", selectedBook);
         setBookRecord(selectedBook);
         setEditIndex(index);
         onOpenModal();
@@ -55,7 +57,7 @@ const MainView: FC<any> = () => {
     }
 
     const deleteBook = (index: any) => {
-        const newbooks = bookData.filter((i) => { return i !== index });
+        const newbooks = bookData.filter((x, i) => { return i !== index });
         setBookData(newbooks);
     }
     return (
