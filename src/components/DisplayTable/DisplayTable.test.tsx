@@ -107,3 +107,39 @@ describe('DisplayTable Interaction Testing', () => {
 
     })
 })
+
+
+describe('DisplayTable Modularity Testing', () => {
+    test("Should able to Edit correct record index", async () => {
+        const screen = render(
+            <DisplayTable bookData={mockData} editBook={mockEditBookFn} deleteBook={mockDeleteBookeFn} />
+        )
+        const rows = screen.getAllByTestId('table-body-row')
+
+        const editButton = within(rows[0]).getByTestId('action-cell-0').children[0]
+
+        await act(() => {
+            userEvent.click(editButton)
+        })
+
+        await waitFor(() => {expect(mockEditBookFn).toHaveBeenCalledWith(0)})
+
+    })
+
+    test("Should able to Delete correct record index", async () => {
+        const screen = render(
+            <DisplayTable bookData={mockData} editBook={mockEditBookFn} deleteBook={mockDeleteBookeFn} />
+        )
+        const rows = screen.getAllByTestId('table-body-row')
+
+        const deleteButton = within(rows[0]).getByTestId('action-cell-0').children[1]
+
+        await act(() => {
+            userEvent.click(deleteButton)
+        })
+
+        await waitFor(() => {expect(mockDeleteBookeFn).toHaveBeenCalledWith(0)}
+        )
+
+    })
+})

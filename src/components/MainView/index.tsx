@@ -64,7 +64,7 @@ const MainView: FC<any> = () => {
                 <h1>Book Records</h1>
             </div>
             <div className="toolbar">
-                <button className='btn btn-p' onClick={onOpenModal} data-testid='add'><span>Add</span></button>
+                <button className='btn btn-p' onClick={onOpenModal} data-testid='add-button'><span>Add</span></button>
             </div>
             <hr />
             <DisplayTable bookData={bookData} deleteBook={deleteBook} editBook={editBook} />
