@@ -36,8 +36,6 @@ const MainView: FC<any> = () => {
         console.log("index", index);
         setAction('Edit');
         const selectedBook = bookData?.find((x, i) => i === index);
-        console.log("data", bookData);
-        console.log("selected", selectedBook);
         setBookRecord(selectedBook);
         setEditIndex(index);
         onOpenModal();

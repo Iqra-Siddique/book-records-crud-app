@@ -19,12 +19,12 @@ const DisplayTable: FC<any> = (props: any) => {
             <tbody>
                 {bookData.length > 0 && bookData.map((book: BookRecord, index: any) => {
                     return (<tr data-testid='table-body-row' key={index}>
-                        <td data-testid ='title-cell'>{book.title}</td>
-                        <td data-testid = 'author-cell'>{book.author}</td>
-                        <td data-testid = 'published-date-cell'>{book.published_date}</td>
-                        <td data-testid = 'created-date-cell'>{book.created_date}</td>
-                        <td data-testid = 'update-date-cell'>{book.update_date}</td>
-                        <td data-testid = 'actions-cell'>
+                        <td data-testid ={`title-cell-${index}`}>{book.title}</td>
+                        <td data-testid = {`author-cell-${index}`}>{book.author}</td>
+                        <td data-testid = {`published-date-cell-${index}`}>{book.published_date}</td>
+                        <td data-testid = {`created-date-cell-${index}`}>{book.created_date}</td>
+                        <td data-testid = {`update-date-cell-${index}`}>{book.update_date}</td>
+                        <td data-testid = {`action-cell-${index}`}>
                             <button className='btn ml2' onClick={() => editBook(index)} data-testid={`edit-button-${index}`}><span>Edit</span></button>
                             <button className='btn ml2' onClick={() => deleteBook(index)} data-testid={`delete-button-${index}`}><span>Delete</span></button>
                         </td>

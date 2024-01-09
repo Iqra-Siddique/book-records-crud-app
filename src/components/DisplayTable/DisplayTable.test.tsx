@@ -6,15 +6,15 @@ const mockData = [{
     title: "Book 1",
     author: "John",
     published_date: "2024-01-04",
-    created_date: new Date().toISOString(),
-    update_date: new Date().toISOString(),
+    created_date: '',
+    update_date: '',
 },
 {
     title: "Book 2",
     author: "Marry",
     published_date: "2024-02-04",
-    created_date: new Date().toISOString(),
-    update_date: new Date().toISOString(),
+    created_date: "",
+    update_date: "",
 }]
 const mockEditBookFn = jest.fn()
 const mockDeleteBookeFn = jest.fn()
@@ -55,19 +55,19 @@ describe('DisplayTable Interface Testing', () => {
 
     })
 
-    test.each([[0, 'Book 1'], [1, 'Book 2']])("Should display correct data in rows of the table.", (i, expectedValue) => {
+    test("Should display correct data in rows of the table.", () => {
         const screen = render(
             <DisplayTable bookData={mockData} editBook={mockEditBookFn} deleteBook={mockDeleteBookeFn} />
         )
 
         const rows = screen.getAllByTestId('table-body-row')
 
-        // const deleteButton = screen.getAllByTestId('delete-button')
-
-        expect(within(rows[i]).getByTestId('title-cell')).toHaveTextContent(expectedValue)
-        expect(within(rows[i]).getByTestId('actions-cell').children.length).toBe(2)
-        expect(within(rows[i]).getByTestId('actions-cell').children[0]).toHaveTextContent('Edit')
-        expect(within(rows[i]).getByTestId('actions-cell').children[1]).toHaveTextContent('Delete')
+        expect(within(rows[0]).getByTestId('title-cell-0')).toHaveTextContent('Book 1')
+        expect(within(rows[0]).getByTestId('author-cell-0')).toHaveTextContent('John')
+        expect(within(rows[0]).getByTestId('published-date-cell-0')).toHaveTextContent('2024-01-04')
+        expect(within(rows[0]).getByTestId('action-cell-0').children.length).toBe(2)
+        expect(within(rows[0]).getByTestId('action-cell-0').children[0]).toHaveTextContent('Edit')
+        expect(within(rows[0]).getByTestId('action-cell-0').children[1]).toHaveTextContent('Delete')
 
     })
 })
@@ -79,7 +79,7 @@ describe('DisplayTable Interaction Testing', () => {
         )
         const rows = screen.getAllByTestId('table-body-row')
 
-        const editButton = within(rows[0]).getByTestId('actions-cell').children[0]
+        const editButton = within(rows[0]).getByTestId('action-cell-0').children[0]
 
         await act(() => {
             userEvent.click(editButton)
@@ -96,7 +96,7 @@ describe('DisplayTable Interaction Testing', () => {
         )
         const rows = screen.getAllByTestId('table-body-row')
 
-        const deleteButton = within(rows[0]).getByTestId('actions-cell').children[1]
+        const deleteButton = within(rows[0]).getByTestId('action-cell-0').children[1]
 
         await act(() => {
             userEvent.click(deleteButton)

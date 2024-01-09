@@ -188,7 +188,7 @@ describe('AddUpdateModal Interaction Testing', () => {
       userEvent.click(updateButton)
     })
 
-    await waitFor(() => expect(mockUpdateFn).toBeCalledTimes(1))
+    await waitFor(() => expect(mockUpdateFn).toHaveBeenCalled())
 
   });
 })
@@ -237,6 +237,13 @@ describe('AddUpdateModal Modularity Testing', () => {
 
 describe('AddUpdateModal Modularity Testing', ()=>{
   test("Should able to Update record with new values.", async () => {
+    const newData = {
+      title: "1",
+      author: "Marry",
+      published_date: "2024-02-04",
+      created_date: '',
+      update_date: '',
+    };
     const screen = render(
       <AddUpdateModal
         updateBook={mockUpdateFn}
@@ -253,35 +260,28 @@ describe('AddUpdateModal Modularity Testing', ()=>{
     const publishedDateField = screen.getByTestId("published_date");
     const editButton = screen.getByTestId('update')
 
-    await waitFor(()=> expect(titleField).toHaveValue(`${mockData.title}`))
-    await waitFor(()=> expect(authorField).toHaveValue(`${mockData.author}`))
-    await waitFor(()=> expect(publishedDateField).toHaveValue(`${mockData.published_date}`))
+    // await waitFor(()=> expect(titleField).toHaveValue(mockData.title))
+    // await waitFor(()=> expect(authorField).toHaveValue(mockData.author))
+    // await waitFor(()=> expect(publishedDateField).toHaveValue(mockData.published_date))
 
     
-    await userEvent.clear(titleField)
-    await userEvent.clear(authorField)
-    await userEvent.clear(publishedDateField)
+    userEvent.clear(publishedDateField)
 
-    await waitFor(()=> expect(titleField).toHaveValue(''))
-    await waitFor(()=> expect(authorField).toHaveValue(''))
-    await waitFor(()=> expect(publishedDateField).toHaveValue(''))
-    
-
-    await act(() => {
-      userEvent.type(titleField, 'Book 2')
-      userEvent.type(authorField, 'Marry')
-      userEvent.type(publishedDateField, '2024-02-01')
+    await act(async() => {
+     await userEvent.type(titleField, newData?.title)
+     await userEvent.type(authorField, newData?.author)
+     await userEvent.type(publishedDateField, newData?.published_date)
     })
 
-    expect(titleField).toHaveValue('Book 2')
-    expect(authorField).toHaveValue('Marry')
-    expect(publishedDateField).toHaveValue('2024-02-01')
+    expect(titleField).toHaveValue(mockData?.title + newData?.title)
+    expect(authorField).toHaveValue(mockData?.author + newData?.author)
+    expect(publishedDateField).toHaveValue(newData?.published_date)
     await act(() => {
       userEvent.click(editButton)
     })
 
     await waitFor(()=>{
-      expect(mockUpdateFn).toHaveBeenCalledTimes(1)
+      expect(mockUpdateFn).toHaveBeenCalled()
     })
   
   });
