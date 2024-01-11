@@ -65,6 +65,8 @@ describe('DisplayTable Interface Testing', () => {
         expect(within(rows[0]).getByTestId('title-cell-0')).toHaveTextContent('Book 1')
         expect(within(rows[0]).getByTestId('author-cell-0')).toHaveTextContent('John')
         expect(within(rows[0]).getByTestId('published-date-cell-0')).toHaveTextContent('2024-01-04')
+        expect(within(rows[0]).getByTestId('created-date-cell-0')).toHaveTextContent('')
+        expect(within(rows[0]).getByTestId('update-date-cell-0')).toHaveTextContent('')
         expect(within(rows[0]).getByTestId('action-cell-0').children.length).toBe(2)
         expect(within(rows[0]).getByTestId('action-cell-0').children[0]).toHaveTextContent('Edit')
         expect(within(rows[0]).getByTestId('action-cell-0').children[1]).toHaveTextContent('Delete')
